@@ -31,7 +31,7 @@
 	margin-right: 5px;
 }
 
-.treeview .node-disabled {
-	color: silver;
-	cursor: not-allowed;
+.treeview .node-disabled .check-icon, .treeview .node-disabled .node-text {
+    color: silver;
+    cursor: not-allowed;
 }

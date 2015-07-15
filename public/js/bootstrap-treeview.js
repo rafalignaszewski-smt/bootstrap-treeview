@@ -320,7 +320,6 @@
 
 		var target = $(event.target);
 		var node = this.findNode(target);
-		if (!node || node.state.disabled) return;
 		
 		var classList = target.attr('class') ? target.attr('class').split(' ') : [];
 		if ((classList.indexOf('expand-icon') !== -1)) {
@@ -330,11 +329,13 @@
 		}
 		else if ((classList.indexOf('check-icon') !== -1)) {
 			
+			if (!node || node.state.disabled) return;
 			this.toggleCheckedState(node, _default.options);
 			this.render();
 		}
 		else {
 			
+			if (!node || node.state.disabled) return;
 			if (node.selectable) {
 				this.toggleSelectedState(node, _default.options);
 			} else {
@@ -593,7 +594,7 @@
 			else {
 				// otherwise just text
 				treeItem
-					.append(node.text);
+					.append($(_this.template.text).append(node.text));
 			}
 
 			// Add tags as badges
@@ -610,7 +611,7 @@
 			_this.$wrapper.append(treeItem);
 
 			// Recursively add child ndoes
-			if (node.nodes && node.state.expanded && !node.state.disabled) {
+			if (node.nodes && node.state.expanded) {
 				return _this.buildTree(node.nodes, level);
 			}
 		});
@@ -692,7 +693,8 @@
 		indent: '<span class="indent"></span>',
 		icon: '<span class="icon"></span>',
 		link: '<a href="#" style="color:inherit;"></a>',
-		badge: '<span class="badge"></span>'
+		badge: '<span class="badge"></span>',
+		text: '<span class="node-text"></span>'
 	};
 
 	Tree.prototype.css = '.treeview .list-group-item{cursor:pointer}.treeview span.indent{margin-left:10px;margin-right:10px}.treeview span.icon{width:12px;margin-right:5px}.treeview .node-disabled{color:silver;cursor:not-allowed}'
